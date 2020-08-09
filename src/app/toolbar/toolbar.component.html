@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span>Employee Details </span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+
+  <span *ngIf="!authenticated" (click)="login()">
+
+    <button mat-raised-button>Login </button>
+  </span>
+
+  <span *ngIf="authenticated" (click)="logout()">
+    <!--<button mat-raised-button style="margin-right: 8px">File Upload </button>-->
+
+
+    <button mat-raised-button style="margin-left: 10px">Logout</button>
+  </span>
+</mat-toolbar>
