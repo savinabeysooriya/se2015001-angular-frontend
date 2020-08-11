@@ -47,25 +47,42 @@ export class HomeComponent implements OnInit {
 
   }
 
+  // uploadFile(file) {
+  //   const formData = new FormData();
+  //   formData.append('image', file.data);
+  //   this.homeService.upload(formData).subscribe({
+  //     next: result => {
+  //       console.log(result);
+  //       if (result['statusCode'] == 200) {
+  //         this.resources = 'Image uploaded successfully'
+  //       } else {
+  //         this.resources = 'Image upload failed!'
+  //       }
+  //     }
+  //   });
+  // }
+  //
+  // private uploadFiles() {
+  //   this.fileUpload.nativeElement.value = '';
+  //   this.uploadFile(this.files[0]);
+  //   }
+
+
   uploadFile(file) {
     const formData = new FormData();
     formData.append('image', file.data);
+    // this.isLoading = true;
     this.homeService.upload(formData).subscribe({
       next: result => {
-        console.log(result);
-        if (result['statusCode'] == 200) {
-          this.resources = 'Image uploaded successfully'
-        } else {
-          this.resources = 'Image upload failed!'
-        }
+        // this.isLoading = false;
       }
     });
   }
-
   private uploadFiles() {
     this.fileUpload.nativeElement.value = '';
     this.uploadFile(this.files[0]);
-    }
+  }
+
   onClick() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
