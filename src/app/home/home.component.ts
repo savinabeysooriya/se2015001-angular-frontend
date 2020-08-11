@@ -75,6 +75,11 @@ export class HomeComponent implements OnInit {
     this.homeService.upload(formData).subscribe({
       next: result => {
         // this.isLoading = false;
+        if (result['statusCode'] == 200) {
+          this.resources = 'Image uploaded successfully';
+        } else {
+          this.resources = 'Image upload failed!';
+        }
       }
     });
   }
