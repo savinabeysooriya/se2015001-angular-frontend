@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         console.log(result);
         console.log(result['data']);
         this.data = result['data']['data'];
-        this.resources = result['source'];
+        this.resources = 'Data getting from ' + result['source'];
         this.isLoading = false;
       }
     });
@@ -49,33 +49,23 @@ export class HomeComponent implements OnInit {
 
   uploadFile(file) {
     const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
-    this.homeService.upload(formData).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
+    formData.append('image', file.data);
+    this.homeService.upload(formData).subscribe({
+      next: result => {
+        console.log(result);
+        if (result['statusCode'] == 200) {
+          this.resources = 'Image uploaded successfully'
+        } else {
+          this.resources = 'Image upload failed!'
         }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
-      })).subscribe((event: any) => {
-      if (typeof (event) === 'object') {
-        console.log(event.body);
       }
     });
   }
+
   private uploadFiles() {
     this.fileUpload.nativeElement.value = '';
-    this.files.forEach(file => {
-      this.uploadFile(file);
-    });
-  }
+    this.uploadFile(this.files[0]);
+    }
   onClick() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {

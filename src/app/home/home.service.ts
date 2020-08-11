@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class HomeService {
 
-  SERVER_URL: string = 'https://file.io/';
+  SERVER_URL: string = 'https://se15001-nodejs-redis-app.azurewebsites.net/file/upload';
   constructor(private httpClient: HttpClient) { }
   public upload(formData) {
 
